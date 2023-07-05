@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- XML을 사용하는 패키지 입력 : UserDAO -->
+<mapper namespace="com.study.exam07_board.UserDAO">
+
+	<resultMap type="com.study.exam07_board.user.UserTblVO" id="userMap">
+		<result property="userId" 		column="USERID" />
+		<result property="userPw" 		column="USERPW" />
+		<result property="name" 		column="NAME" />
+		<result property="email" 		column="EMAIL" />
+	</resultMap>
+    <!-- 쿼리 작성 -->
+    <select id="selectOneUser" resultMap="userMap">		
+        SELECT * FROM USER_TBL WHERE USERID=#{userId} AND USERPW=#{userPw}
+    <!-- 이 때, USER_TBL VO가 무엇인지 알아야 userId와 userPw를 찾을 수 있음 -->
+	</select>
+
+</mapper>
