@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.test.UserDAO">
+
+	<resultMap type="com.study.test.user.UserTblVO" id="userMap">
+		<result property="userId" 		column="USERID" />
+		<result property="userPw" 		column="USERPW" />
+		<result property="name" 		column="NAME" />
+		<result property="email" 		column="EMAIL" />
+        <result property="phoneNum" 	column="PHONENUM" />
+        <result property="signupDate" 	column="SIGNUPDATE" />
+	</resultMap>
+
+    <select id="selectOneUser" resultMap="userMap">		
+        SELECT * FROM USER_TBL WHERE USERID=#{userId} AND USERPW=#{userPw}
+	</select>
+
+</mapper>
