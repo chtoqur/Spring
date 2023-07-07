@@ -6,7 +6,7 @@
 <title>Login</title>
 </head>
 <body>
-<h1>Login</h1>
+<h1>Exam01_Login</h1>
 <!-- 묶여있어야 전송할 수 있기 때문에 form 태그 사용 -->
 <form action="/loginProc" method="post">
     <fieldset>

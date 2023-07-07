@@ -1,5 +1,8 @@
 package com.study.exam07_board.common;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -54,7 +57,9 @@ public class MainController {
     // 3. 마지막으로 UserTblVO 객체의 참조값을 login() 파라미터로 넣어주세요.
 
     @PostMapping("/login")
-    public String login(@ModelAttribute("UserTblVO") UserTblVO vo) throws Exception
+    public void login(@ModelAttribute("UserTblVO") UserTblVO vo, 
+                        HttpServletRequest request,
+                        HttpServletResponse response) throws Exception
     {
         // @ModelAttribute
         // "UserTblVO"라는 클래스명을 줄테니 1,2,3 절차를 수행해줘
@@ -63,18 +68,17 @@ public class MainController {
         // 결과를 받아 resultVO에 넣는 것
         UserTblVO resultVO = userdao.selectOneUser(vo);
 
-        if (resultVO == null)
+        // 로그인 정보가 있을 때
+        if (resultVO != null)
         {
-            return "login";
+            // 세션을 저장한다.
+            // Request에는 사용자의 모든 정보가 있기 때문에 이 정보를 세션이 활용
+            SessionUtil.set(request, "USER", vo);
+            response.sendRedirect("index");
         }
         else
         {
-            System.out.println("id = " + resultVO.getUserId());
-            System.out.println("pw = " + resultVO.getUserPw());
-            System.out.println("email = " + resultVO.getEmail());
-            System.out.println("name = " + resultVO.getName());
-            return "index";
+            response.sendRedirect("login");
         }
-
     }
 }

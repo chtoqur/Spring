@@ -1,5 +1,8 @@
 package com.study.exam04.controller;
 
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,19 +14,19 @@ public class MainController {
     // /hello라는 GET 방식으로 들어왔을 때, "hello"를 model에 리턴하겠다는 것
     // model 측에서 단순한 문자열만으로는 수행할 작업이 없으므로 view로 넘어감
     // view는 화면을 전달해주는 사람이므로 
-    @GetMapping("/hello")
-    public String hello()
+    @GetMapping("/exam01_hello")
+    public String exam01_hello()
     {
         System.out.println("Receive Hello Get Request!");
-        return "hello";
+        return "exam01_hello";
     }
 
-    @GetMapping("/login")
-    public String login()
+    @GetMapping("/exam01_login")
+    public String exam01_login()
     {
         // 코드 작성
         System.out.println("Success");
-        return "login";
+        return "exam01_login";
     }
 
     @PostMapping("/loginProc")
@@ -83,5 +86,37 @@ public class MainController {
     public String exam04_request_value()
     {
         return "exam04_request_value";
+    }
+
+    @GetMapping("/exam05_response")
+    public String exam05_response()
+    {
+        return "exam05_response";
+    }
+
+    @PostMapping("/exam05_response_info")
+    public void exam05_response_info(String userId, String userPw,
+                                       HttpServletRequest request,
+                                       HttpServletResponse response) throws Exception
+    {
+        System.out.println("ID : " + userId);
+        System.out.println("PW : " + userPw);
+
+        if ((userId.equals("abc")) && (userPw.equals("1111")))
+        {
+            // 로그인 성공 - 메인페이지로
+            response.sendRedirect("exam01_hello");
+        }
+        else
+        {
+            // 로그인 실패 - 로그인 페이지로
+            response.sendRedirect("exam05_response");
+        }
+    }
+
+    @GetMapping("/exam06_out")
+    public String exam06_out()
+    {
+        return "exam06_out";
     }
 }
